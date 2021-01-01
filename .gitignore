@@ -1,0 +1,16 @@
+*~
+*#
+*.pyc
+*.aux
+*.log
+*.project
+*.pydevproject
+*.p
+*/.DS_Store
+SignalIntegrity.egg-info/
+Doc/xhtml
+build/
+dist/
+.idea
+venv
+Exam
