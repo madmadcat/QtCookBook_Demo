@@ -34,11 +34,13 @@ class MyForm(QMainWindow):
         params = self.ui.textEditContents.toPlainText()
         headers = {}
 
+        # urllib3 中 如需出现中文header ，需要特殊编码
         for i in range(self.ui.tableWidgetHeader.rowCount()):
-            if self.ui.tableWidgetHeader.item(i,0):
-                k = self.ui.tableWidgetHeader.item(i,0).text()
-                v = self.ui.tableWidgetHeader.item(i,1).text()
-                headers[k] = v
+            if self.ui.tableWidgetHeader.item(i,0) == None or self.ui.tableWidgetHeader.item(i, 1) == None:
+                continue
+            k = self.ui.tableWidgetHeader.item(i,0).text()
+            v = self.ui.tableWidgetHeader.item(i,1).text()
+            headers[k] = v
 
         if type == 'GET':
              r = requests.get(url, headers=headers, params=params)
