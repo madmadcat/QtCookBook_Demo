@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("表格控件示例")
         self.create_table()
         self.create_map()
-        #self.setup_centralWidget()
+        self.setup_centralWidget()
         self.statusBar().showMessage("ready")
         self.setWindowIcon(QIcon(":ICON/ICON/retest.png"))
         self.resize(500,500)
