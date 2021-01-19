@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'GUI.ui'
+# Form implementation generated from reading ui file 'mainwindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.2
 #
@@ -75,7 +75,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.textBrowser)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 698, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 698, 23))
         self.menubar.setObjectName("menubar")
         self.menuConnect = QtWidgets.QMenu(self.menubar)
         self.menuConnect.setObjectName("menuConnect")
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "IO Tester"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Instrument IO Tool"))
         self.label_command.setText(_translate("MainWindow", "Command"))
         self.comboBox_cmd_history.setCurrentText(_translate("MainWindow", "*IDN?"))
         self.comboBox_cmd_history.setItemText(0, _translate("MainWindow", "*IDN?"))
@@ -148,13 +148,13 @@ class Ui_MainWindow(object):
         self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.menuConnect.setTitle(_translate("MainWindow", "Connect(&c)"))
+"</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'.AppleSystemUIFont\'; font-size:13pt;\"><br /></p></body></html>"))
+        self.menuConnect.setTitle(_translate("MainWindow", "Connect"))
         self.menuInteract.setTitle(_translate("MainWindow", "Interact"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.actionConnect.setText(_translate("MainWindow", "Connect..."))
-        self.actionConnect.setShortcut(_translate("MainWindow", "Meta+C"))
+        self.actionConnect.setShortcut(_translate("MainWindow", "C"))
         self.actionDisconnect.setText(_translate("MainWindow", "Disconnect"))
         self.actionClear.setText(_translate("MainWindow", "Clear Session History"))
         self.actionStop_IO_Opertion.setText(_translate("MainWindow", "Stop IO Opertion"))
