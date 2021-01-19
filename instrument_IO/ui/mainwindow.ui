@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>698</width>
+    <height>576</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>IO Tester</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../res/icon/toolbox-100.png</normaloff>../res/icon/toolbox-100.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_command">
+        <property name="text">
+         <string>Command</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QComboBox" name="comboBox_cmd_history">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="currentText">
+         <string>*IDN?</string>
+        </property>
+        <property name="maxCount">
+         <number>20</number>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::InsertAtTop</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>*IDN?</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="btn_send_then_read">
+        <property name="text">
+         <string>Send then Read</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="btn_read_response">
+        <property name="text">
+         <string>Read Response</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="btn_send_command">
+        <property name="text">
+         <string>Send Command</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="comboBox_cmd_list">
+        <property name="styleSheet">
+         <string notr="true">alternate-background-color: rgb(201, 206, 206);
+background-color: rgb(185, 188, 188);</string>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <property name="currentText">
+         <string>Commands &gt;</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Commands &gt;</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*IDN?</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*OPC?</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*CLS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*RCL</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*RST</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*SAV</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*STB?</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*TRG</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>*TST?</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_instr_session_hist">
+      <property name="text">
+       <string>Instrment Session History</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="textBrowser">
+      <property name="styleSheet">
+       <string notr="true">alternate-background-color: rgb(201, 206, 206);
+background-color: rgb(185, 188, 188);</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>698</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuConnect">
+    <property name="title">
+     <string>Connect(&amp;c)</string>
+    </property>
+    <addaction name="actionConnect"/>
+    <addaction name="actionDisconnect"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose"/>
+   </widget>
+   <widget class="QMenu" name="menuInteract">
+    <property name="title">
+     <string>Interact</string>
+    </property>
+    <addaction name="actionStop_IO_Opertion"/>
+    <addaction name="actionClear"/>
+    <addaction name="separator"/>
+    <addaction name="actiontimeout"/>
+   </widget>
+   <addaction name="menuConnect"/>
+   <addaction name="menuInteract"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionStop_IO_Opertion"/>
+   <addaction name="actiontimeout"/>
+  </widget>
+  <action name="actionConnect">
+   <property name="text">
+    <string>Connect...</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+C</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="text">
+    <string>Clear Session History</string>
+   </property>
+  </action>
+  <action name="actionStop_IO_Opertion">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../res/icon/cancel-100.png</normaloff>../res/icon/cancel-100.png</iconset>
+   </property>
+   <property name="text">
+    <string>Stop IO Opertion</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>&amp;Close Window</string>
+   </property>
+   <property name="toolTip">
+    <string>Close the window</string>
+   </property>
+  </action>
+  <action name="actiontimeout">
+   <property name="icon">
+    <iconset>
+     <normaloff>../res/icon/setting-100.png</normaloff>../res/icon/setting-100.png</iconset>
+   </property>
+   <property name="text">
+    <string>Timeout Configuration</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
