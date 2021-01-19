@@ -59,16 +59,16 @@ class MyForm(QMainWindow):
     def exception_handler(self, exception):
         """异常处理，格式化后输入到日志
         """
-        text = 'Error information:\n\tAbbreviation: ' + exception.abbreviation + '\n\tError code: ' + exception.error_code + '\n\tDescription: ' + exception.description
+        text = 'Error information:\n\tAbbreviation: ' + str(exception.abbreviation) + '\n\tError code: ' + str(exception.error_code) + '\n\tDescription: ' + str(exception.description)
         self.update_logging(text)
 
     def instr_session(self, visa_addr):
         """建立和设备的通信"""
-        text = visa_addr
+        text = 'Bad address'
         res_manager = visa.ResourceManager()
         try:
             self.update_logging('Trying to connect to the instrument ' + text)
-            session = res_manager.open_resource(text)
+            session = res_manager.open_resource("BAD ADDRESS")
         except visa.VisaIOError as ex:
             self.update_logging('VISA ERROR - An error has occurred!')
             self.exception_handler(ex)
