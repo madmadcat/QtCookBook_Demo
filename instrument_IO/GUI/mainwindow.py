@@ -75,7 +75,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.textBrowser)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 698, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 698, 24))
         self.menubar.setObjectName("menubar")
         self.menuConnect = QtWidgets.QMenu(self.menubar)
         self.menuConnect.setObjectName("menuConnect")
@@ -122,6 +122,7 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actiontimeout)
 
         self.retranslateUi(MainWindow)
+        self.comboBox_cmd_list.activated['QString'].connect(self.comboBox_cmd_history.setCurrentText)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -148,8 +149,8 @@ class Ui_MainWindow(object):
         self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'.AppleSystemUIFont\'; font-size:13pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuConnect.setTitle(_translate("MainWindow", "Connect"))
         self.menuInteract.setTitle(_translate("MainWindow", "Interact"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
