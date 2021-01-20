@@ -18,6 +18,7 @@ class MyForm(QMainWindow):
     def __init__(self):
 
         super().__init__()
+        self.session = None
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         # 拒绝菜单栏的 mac 风格
@@ -59,7 +60,7 @@ class MyForm(QMainWindow):
         dialog.destroy()
 
         if visa_addr.strip():
-            self.create_session(visa_addr)
+            self.session = self.create_session(visa_addr)
 
     def exception_handler(self, exception):
         """异常处理，格式化后输入到日志
