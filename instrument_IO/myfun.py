@@ -1,5 +1,5 @@
 import pyvisa as visa
-
+from helpers.kthread import *
 class A(object):
 
     def __init__(self):
@@ -20,6 +20,19 @@ class A(object):
             print('VISA ERROR - An error has occurred!\n')
             self.exceptionHandler(ex)
 
+    @timeout(5)
+    def method_timeout(self, seconds, text):
+        print('start', seconds, text)
+        sleep(seconds)
+        print('finish', seconds, text)
+        return seconds
+
 if __name__ == '__main__':
     obj = A()
-    obj.handler()
+
+    for sec in range(1, 10):
+        try:
+            print('*' * 20)
+            print(obj.method_timeout(sec, 'test waiting %d seconds' % sec))
+        except Timeout as e:
+            print(e)

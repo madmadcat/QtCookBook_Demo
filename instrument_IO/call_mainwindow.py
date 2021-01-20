@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 
 import pyvisa as visa
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, qApp
+from PyQt5.QtWidgets import QMainWindow, qApp, QApplication
 
 from GUI.mainwindow import *
 from call_connect_dialog import *
@@ -23,7 +24,7 @@ class MyForm(QMainWindow):
         self.ui.menubar.setNativeMenuBar(False)
 
         self.ui.actionClose.triggered.connect(qApp.quit)
-        self.ui.actionConnect.triggered.connect(self.connect_dialog)
+        self.ui.actionConnect.triggered.connect(self.get_visa_addr)
         self.ui.actionClear.triggered.connect(self.clear_logging)
         self.ui.btn_send_command.clicked.connect(self.write_cmd)
         self.ui.btn_read_response.clicked.connect(self.read_response)
@@ -43,40 +44,55 @@ class MyForm(QMainWindow):
     def query_cmd(self):
         pass
 
-    def connect_dialog(self):
+    def get_visa_addr(self, visa_addr=''):
         """开启新的对话子窗口，通过文本输入框获得VIAS_ADDRESS,
         OK: 返回VIAS_ADDRESS，关闭对话框
         Cancel: 关闭对话框
-        :return string of VIAS_ADDRESS
+        :return
         """
+
         dialog = ConnectDialog(self)
-        dialog.exec_()
-        visa_addr = dialog.VISA_addr()
+
+        # 调用自定义对话框，获取visa_addr
+        if dialog.exec_():
+            visa_addr = dialog.VISA_addr()
         dialog.destroy()
-        self.update_status_bar('Connecting to ' + visa_addr)
-        self.instr_session(visa_addr)
+
+        if visa_addr.strip():
+            self.create_session(visa_addr)
 
     def exception_handler(self, exception):
         """异常处理，格式化后输入到日志
         """
-        text = 'Error information:\n\tAbbreviation: ' + str(exception.abbreviation) + '\n\tError code: ' + str(exception.error_code) + '\n\tDescription: ' + str(exception.description)
-        self.update_logging(text)
+        # text = 'Error information:\n\tAbbreviation: ' \
+        #        + str(exception.abbreviation) \
+        #        + '\n\tError code: ' + str(exception.error_code) \
+        #        + '\n\tDescription: ' + str(exception.description)
+        self.update_logging(f'{exception}')
 
-    def instr_session(self, visa_addr):
-        """建立和设备的通信"""
-        text = 'Bad address'
+    def create_session(self, visa_addr):
+        """建立和设备的通信
+        :return 返回所连接设备的会话对象
+        """
         res_manager = visa.ResourceManager()
+        self.update_status_bar('Connecting to ' + visa_addr)
+        session = None
         try:
-            self.update_logging('Trying to connect to the instrument ' + text)
-            session = res_manager.open_resource("BAD ADDRESS")
+            self.update_logging('Trying to connect to the instrument '
+                                + visa_addr)
+            session = res_manager.open_resource(visa_addr)
+
         except visa.VisaIOError as ex:
-            self.update_logging('VISA ERROR - An error has occurred!')
             self.exception_handler(ex)
+        except ValueError as ex:
+            self.exception_handler(ex)
+        except OSError as ex:
+            self.exception_handler(ex)
+        return session
 
     def update_logging(self, info=None):
         """更新日志窗口"""
-        text = info
-        self.ui.textBrowser.append(text)
+        self.ui.textBrowser.append(info)
 
     def update_status_bar(self, info='waiting for connect'):
 
