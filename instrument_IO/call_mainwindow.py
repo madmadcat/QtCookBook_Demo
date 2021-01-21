@@ -73,7 +73,6 @@ class MyWindow(QMainWindow):
         self.ui.actionSYST_ERR_Query.triggered.connect(self.query_syserr)
         # signal and slot ,transfer parameters by lambda
         # self.ui.btn_write.clicked.connect(lambda: self.write_cmd(self.cmd))
-        # self.cmd = self.ui.comboBox_cmd_history.currentText()
         self.ui.btn_write.clicked.connect(self.btn_handler)
         self.ui.btn_read.clicked.connect(self.btn_handler)
         self.ui.btn_query.clicked.connect(self.btn_handler)
@@ -86,11 +85,13 @@ class MyWindow(QMainWindow):
         pass
 
     def config_dialog_handler(self):
-        """开启对话框，传递配置参数
+        """
+        开启对话框，通过自定义信号传递timeout和termination两个参数
         """
         dialog = MyConfigDialog(self)
         dialog.signal_para.connect(self.conf_diag_sign_handler)
-        dialog.show()
+        if dialog.exec_():
+            dialog.destroy()
 
     def conf_diag_sign_handler(self, timeout_int, term_str):
         self.timeout = timeout_int
