@@ -224,11 +224,11 @@ p, li { white-space: pre-wrap; }
    <addaction name="separator"/>
    <addaction name="actionDevice_Clear"/>
    <addaction name="separator"/>
-   <addaction name="actionConfig"/>
-   <addaction name="separator"/>
    <addaction name="actionSYST_ERR_Query"/>
    <addaction name="separator"/>
    <addaction name="actionClear"/>
+   <addaction name="separator"/>
+   <addaction name="actionConfig"/>
   </widget>
   <action name="actionConnect">
    <property name="text">
@@ -284,6 +284,9 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionDevice_Clear">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset>
      <normaloff>../res/icon/toolbox-100.png</normaloff>../res/icon/toolbox-100.png</iconset>
@@ -293,6 +296,9 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionSYST_ERR_Query">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>SYST:ERR? Query</string>
    </property>

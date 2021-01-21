@@ -78,6 +78,20 @@ class MyWindow(QMainWindow):
         self.ui.btn_query.clicked.connect(self.btn_handler)
         self.update_status_bar()
 
+    def act_stat_toggler(self, stat=1):
+        """
+        stat = 1 means session 实例已存在
+        stat = 0 means seesion 实例为None
+        """
+        print(stat)
+        self.ui.actionConnect.setEnabled(bool(stat - 1))
+        self.ui.actionDisconnect.setEnabled(bool(stat))
+        self.ui.actionDevice_Clear.setEnabled(bool(stat))
+        self.ui.actionSYST_ERR_Query.setEnabled(bool(stat))
+        self.ui.actionSYST_ERR_Query.setEnabled(bool(stat))
+
+
+
     def query_syserr(self):
         pass
 
@@ -195,17 +209,17 @@ class MyWindow(QMainWindow):
             self.update_status_bar('Resource is ready.')
             self.ui.lable_status.setText('连接状态: 已连接')
             self.ui.lable_status.setStyleSheet('color: green')
-            self.ui.actionConnect.setEnabled(False)
-            self.ui.actionDisconnect.setEnabled(True)
+            self.act_stat_toggler(1)
+            print('status toggle done')
+
         except (visa.VisaIOError, ValueError, OSError) as ex:
             self.exception_handler(ex)
         return
 
     def close_session(self):
         try:
-            self.session.closed
-            self.ui.actionConnect.setEnabled(True)
-            self.ui.actionDisconnect.setEnabled(False)
+            self.session.close
+            self.act_stat_toggler(0)
         except visa.VisaIOError as ex:
             self.exception_handler(ex)
 
