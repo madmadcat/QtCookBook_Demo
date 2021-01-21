@@ -53,6 +53,7 @@ class MyWindow(QMainWindow):
         # 定义visa 设备的 session属性，保证在窗口应用下持续性
         self.session = None
         self.timeout = 2000
+        self.termination = '\n'
         self.value = 0
         self.curr_msg = '*IDN?'
 
@@ -87,7 +88,13 @@ class MyWindow(QMainWindow):
     def config_dialog_handler(self):
         """开启对话框，传递配置参数
         """
-        pass
+        dialog = MyConfigDialog(self)
+        dialog.signal_para.connect(self.conf_diag_sign_handler)
+        dialog.show()
+
+    def conf_diag_sign_handler(self, timeout_int, term_str):
+        self.timeout = timeout_int
+        self.termination = term_str
 
     def clear_logging(self):
         self.ui.textBrowser.clear()
