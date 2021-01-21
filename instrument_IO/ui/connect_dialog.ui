@@ -47,7 +47,7 @@
      <item>
       <widget class="QLineEdit" name="lineEdit_VIAS_addr">
        <property name="text">
-        <string>GPIB0::7::INSTR</string>
+        <string>TCPIP0::192.168.1.*::inst0::INSTR</string>
        </property>
        <property name="placeholderText">
         <string>GPIB0::7::INSTR</string>

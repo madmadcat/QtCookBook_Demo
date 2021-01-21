@@ -15,13 +15,10 @@ class Ui_connect_Dialog(object):
     def setupUi(self, connect_Dialog):
         connect_Dialog.setObjectName("connect_Dialog")
         connect_Dialog.resize(520, 150)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Fixed,
-            QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            connect_Dialog.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(connect_Dialog.sizePolicy().hasHeightForWidth())
         connect_Dialog.setSizePolicy(sizePolicy)
         connect_Dialog.setMinimumSize(QtCore.QSize(520, 150))
         connect_Dialog.setMaximumSize(QtCore.QSize(520, 150))
@@ -39,8 +36,7 @@ class Ui_connect_Dialog(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.buttonBox = QtWidgets.QDialogButtonBox(connect_Dialog)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(
-            QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayout.addWidget(self.buttonBox)
 
@@ -52,13 +48,6 @@ class Ui_connect_Dialog(object):
     def retranslateUi(self, connect_Dialog):
         _translate = QtCore.QCoreApplication.translate
         connect_Dialog.setWindowTitle(_translate("connect_Dialog", "Connect"))
-        self.label_res_name.setText(
-            _translate(
-                "connect_Dialog",
-                "Resouce Name"))
-        self.lineEdit_VIAS_addr.setText(
-            _translate(
-                "connect_Dialog",
-                "GPIB0::7::INSTR"))
-        self.lineEdit_VIAS_addr.setPlaceholderText(
-            _translate("connect_Dialog", "GPIB0::7::INSTR"))
+        self.label_res_name.setText(_translate("connect_Dialog", "Resouce Name"))
+        self.lineEdit_VIAS_addr.setText(_translate("connect_Dialog", "TCPIP0::192.168.1.*::inst0::INSTR"))
+        self.lineEdit_VIAS_addr.setPlaceholderText(_translate("connect_Dialog", "GPIB0::7::INSTR"))

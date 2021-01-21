@@ -165,6 +165,16 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -190,9 +200,11 @@ p, li { white-space: pre-wrap; }
      <string>Interact</string>
     </property>
     <addaction name="actionStop_IO_Opertion"/>
-    <addaction name="actionClear"/>
     <addaction name="separator"/>
-    <addaction name="actiontimeout"/>
+    <addaction name="actionDevice_Clear"/>
+    <addaction name="actionSYST_ERR_Query"/>
+    <addaction name="actionClear"/>
+    <addaction name="actionConfig"/>
    </widget>
    <addaction name="menuConnect"/>
    <addaction name="menuInteract"/>
@@ -209,7 +221,14 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </attribute>
    <addaction name="actionStop_IO_Opertion"/>
-   <addaction name="actiontimeout"/>
+   <addaction name="separator"/>
+   <addaction name="actionDevice_Clear"/>
+   <addaction name="separator"/>
+   <addaction name="actionConfig"/>
+   <addaction name="separator"/>
+   <addaction name="actionSYST_ERR_Query"/>
+   <addaction name="separator"/>
+   <addaction name="actionClear"/>
   </widget>
   <action name="actionConnect">
    <property name="text">
@@ -229,7 +248,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionClear">
    <property name="text">
-    <string>Clear Session History</string>
+    <string>Clear History</string>
    </property>
   </action>
   <action name="actionStop_IO_Opertion">
@@ -252,13 +271,30 @@ p, li { white-space: pre-wrap; }
     <string>Close the window</string>
    </property>
   </action>
-  <action name="actiontimeout">
+  <action name="actionConfig">
    <property name="icon">
     <iconset>
      <normaloff>../res/icon/setting-100.png</normaloff>../res/icon/setting-100.png</iconset>
    </property>
    <property name="text">
-    <string>Timeout Configuration</string>
+    <string>config</string>
+   </property>
+   <property name="toolTip">
+    <string>configuration</string>
+   </property>
+  </action>
+  <action name="actionDevice_Clear">
+   <property name="icon">
+    <iconset>
+     <normaloff>../res/icon/toolbox-100.png</normaloff>../res/icon/toolbox-100.png</iconset>
+   </property>
+   <property name="text">
+    <string>Device Clear</string>
+   </property>
+  </action>
+  <action name="actionSYST_ERR_Query">
+   <property name="text">
+    <string>SYST:ERR? Query</string>
    </property>
   </action>
  </widget>
