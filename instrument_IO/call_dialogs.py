@@ -11,15 +11,15 @@ class MyConfigDialog(QDialog):
 
     signal_para = pyqtSignal(int, str)
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, timeout_value=2000):
         super(MyConfigDialog, self).__init__(parent)
         self.ui = Ui_ConfigDialog()
+        self.timeout_value = timeout_value
         self.ui.setupUi(self)
-        self.ui.lineEditTimeout.setText(str(2000))
+        self.ui.lineEditTimeout.setText(str(self.timeout_value))
         self.ui.lineEditTimeout.selectAll()
         self.ui.lineEditTimeout.setFocus()
 
-        # TODO: 按钮组的accept和reject状态
         # self.ui.buttonBox.clicked.connect(self.btn_clicked)
         # dialog对象的accepted信号连接到自定义信号发射器
         self.accepted.connect(self.btn_clicked)

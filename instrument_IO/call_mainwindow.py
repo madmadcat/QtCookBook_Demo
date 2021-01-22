@@ -45,15 +45,15 @@ class VisaReadThread(QThread):
 
 class MyWindow(QMainWindow):
 
-    def __init__(self, session=None, parent=None):
+    def __init__(self, parent=None):
 
         super(MyWindow, self).__init__(parent)
 
         # 定义visa 设备的 session属性，保证在窗口应用下持续性
-        self.session = session
+        self.session = None
         # 1000 maybe more reasonable
-        self.timeout = 2000
-        self.termination = '\n'
+        self.timeout = 1000
+        self.termination = '\r\n'
         self.value = 0
         self.curr_msg = '*IDN?'
 
@@ -103,7 +103,7 @@ class MyWindow(QMainWindow):
         """
         开启对话框，通过自定义信号传递timeout和termination两个参数
         """
-        dialog = MyConfigDialog(self)
+        dialog = MyConfigDialog(self, timeout_value=self.timeout)
         dialog.signal_para.connect(self.conf_diag_sign_handler)
         if dialog.exec_():
             dialog.destroy()
@@ -111,6 +111,7 @@ class MyWindow(QMainWindow):
     def conf_diag_sign_handler(self, timeout_int, term_str):
         self.timeout = timeout_int
         self.termination = term_str
+        self.property_setter()
 
     def clear_logging(self):
         self.ui.textBrowser.clear()
@@ -212,10 +213,8 @@ class MyWindow(QMainWindow):
             self.update_logging('Trying to connect to the instrument '
                                 + visa_addr)
             self.session = self.res_manager.open_resource(visa_addr)
-            # update session attributes
             self.update_logging('Updatting session attribute')
-            self.session.timeout = self.timeout
-            self.session.write_termination = self.termination
+            self.property_setter()
             # TODO: debug
             # self.session = 'aaa'
             self.update_logging('Connecting is successed...')
@@ -233,7 +232,9 @@ class MyWindow(QMainWindow):
     def property_setter(self):
         """update attribute to session object
         """
-        pass
+        if self.session:
+            self.session.timeout = self.timeout
+            self.session.write_termination = self.termination
 
     def close_session(self):
         try:
