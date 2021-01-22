@@ -91,8 +91,11 @@ class MyWindow(QMainWindow):
         self.ui.actionSYST_ERR_Query.setEnabled(bool(stat))
 
 
-
+    # TODO:
     def query_syserr(self):
+
+
+
         pass
 
     def device_clear(self):
