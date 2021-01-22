@@ -51,6 +51,7 @@ class MyWindow(QMainWindow):
 
         # 定义visa 设备的 session属性，保证在窗口应用下持续性
         self.session = session
+        # 1000 maybe more reasonable
         self.timeout = 2000
         self.termination = '\n'
         self.value = 0
@@ -95,8 +96,8 @@ class MyWindow(QMainWindow):
         pass
 
     def device_clear(self):
+        self.session.clear()
 
-        pass
 
     def config_dialog_handler(self):
         """
@@ -141,7 +142,8 @@ class MyWindow(QMainWindow):
         elif sender.text() == 'Query':
             self.update_logging('<-->' + self.curr_msg)
             try:
-                self.session.query(self.curr_msg)
+                msg = self.session.query(self.curr_msg)
+                self.update_logging(msg)
             except (visa.VisaIOError, AttributeError) as ex:
                 self.exception_handler(ex)
 
@@ -154,15 +156,20 @@ class MyWindow(QMainWindow):
         if self.value == 100:
             self.abort_read()
 
+
+    # TODO: Can not stop progress ,need to fix,
     def abort_read(self):
 
         self.ui.btn_read.setEnabled(True)
         self.ui.actionStop_IO_Opertion.setEnabled(False)
         self.value = 0
+        self.update_logging('Stopping ProgressBar...')
         self.timer.stop()
         del self.timer
+        self.update_logging('Trying to abort read operation...')
         self.read_operation.quit()
         del self.read_operation
+        self.update_logging('Rread operation is stopped!')
         self.ui.progressBar.setValue(0)
 
     def response_handler(self, response):
@@ -199,14 +206,18 @@ class MyWindow(QMainWindow):
         """建立和设备的通信
         :return
         """
-        res_manager = visa.ResourceManager()
+        self.res_manager = visa.ResourceManager()
         self.update_status_bar('Connecting to ' + visa_addr)
         try:
             self.update_logging('Trying to connect to the instrument '
                                 + visa_addr)
-            # self.session = res_manager.open_resource(visa_addr)
+            self.session = self.res_manager.open_resource(visa_addr)
+            # update session attributes
+            self.update_logging('Updatting session attribute')
+            self.session.timeout = self.timeout
+            self.session.write_termination = self.termination
             # TODO: debug
-            self.session = 'aaa'
+            # self.session = 'aaa'
             self.update_logging('Connecting is successed...')
             self.update_status_bar('Resource is ready.')
             self.ui.lable_status.setText('连接状态: 已连接')
@@ -218,12 +229,20 @@ class MyWindow(QMainWindow):
             self.exception_handler(ex)
         return
 
+    # TODO:
+    def property_setter(self):
+        """update attribute to session object
+        """
+        pass
+
     def close_session(self):
         try:
-            self.session.close
+            self.session.close()
+            self.res_manager.close()
             self.act_stat_toggler(0)
-            self.ui.lable_status = QtWidgets.QLabel('连接状态: 未连接')
+            self.ui.lable_status.setText('连接状态: 未连接')
             self.ui.lable_status.setStyleSheet('color: red')
+            self.update_logging('Disconnect to the Instrument')
         except (visa.VisaIOError, AttributeError) as ex:
             self.exception_handler(ex)
 

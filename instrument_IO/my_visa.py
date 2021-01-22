@@ -31,13 +31,18 @@ class MyResource(object):
         self.rm = visa.ResourceManager()
         try:
             self.session = self.rm.open_resource(self.visa_addr)
+            print(self.session.write_termination)
+            print(self.session.timeout)
+            #self.session.read_termination
         except (visa.VisaIOError, ValueError, OSError) as ex:
             print('Error Info:\n{}'.format(ex))
 
+        self.session.close()
+        self.rm.close()
 conf = {
     'visa_addr':'TCPIP0::192.168.1.3::inst0::INSTR'
 }
 a = MyResource(**conf)
 a.open_resource()
-print(a.__dict__)
+#print(a.__dict__)
 
