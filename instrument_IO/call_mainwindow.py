@@ -20,7 +20,7 @@ class VisaReadThread(QThread):
     """
     result_sig = pyqtSignal(str)
 
-    def __init__(self, timeout, session):
+    def __init__(self, session):
         """
         Start a thread to perform vias read IO operation
 
@@ -30,7 +30,7 @@ class VisaReadThread(QThread):
         customsize signal
         """
         super(VisaReadThread, self).__init__()
-        self.timeout = timeout
+        # self.timeout = timeout
         self.session = session
 
     def run(self):
@@ -38,20 +38,19 @@ class VisaReadThread(QThread):
             response = self.session.read()
             self.result_sig.emit(response)
         except (visa.VisaIOError, AttributeError) as ex:
-            self.exception_handler(ex)
-
+            self.result_sig.emit(str(ex))
     def __del__(self):
         self.wait()
 
 
 class MyWindow(QMainWindow):
 
-    def __init__(self, parent=None):
+    def __init__(self, session=None, parent=None):
 
         super(MyWindow, self).__init__(parent)
 
         # 定义visa 设备的 session属性，保证在窗口应用下持续性
-        self.session = None
+        self.session = session
         self.timeout = 2000
         self.termination = '\n'
         self.value = 0
@@ -96,6 +95,7 @@ class MyWindow(QMainWindow):
         pass
 
     def device_clear(self):
+
         pass
 
     def config_dialog_handler(self):
@@ -125,10 +125,12 @@ class MyWindow(QMainWindow):
             self.ui.actionStop_IO_Opertion.setEnabled(True)
             self.ui.progressBar.setMaximum(100)
             self.timer = QTimer()
-            self.timer.start(self.session.timeout / 1000 * 11)
+            # TODO: confirm session.timeout
+            # self.timer.start(self.session.timeout / 1000 * 11)
+            self.timer.start(self.timeout / 1000 * 11)
             self.timer.timeout.connect(self.show_progress)
             self.read_operation = VisaReadThread(self.session)
-            self.read_operation.result_sig.connect(self.resoponse_handler)
+            self.read_operation.result_sig.connect(self.response_handler)
             self.read_operation.start()
         elif sender.text() == 'Write':
             self.update_logging('-->' + self.curr_msg)
@@ -220,11 +222,15 @@ class MyWindow(QMainWindow):
         try:
             self.session.close
             self.act_stat_toggler(0)
-        except visa.VisaIOError as ex:
+            self.ui.lable_status = QtWidgets.QLabel('连接状态: 未连接')
+            self.ui.lable_status.setStyleSheet('color: red')
+        except (visa.VisaIOError, AttributeError) as ex:
             self.exception_handler(ex)
 
-    def update_logging(self, info=''):
+    def update_logging(self, info=None):
         """更新日志窗口"""
+        if info is None:
+            info = ''
         self.ui.textBrowser.append(info)
 
     def update_status_bar(self, info='waiting for connect'):
