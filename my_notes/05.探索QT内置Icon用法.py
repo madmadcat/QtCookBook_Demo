@@ -19,6 +19,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, \
 
 from PyQt5.QtGui import QIcon
 
+import my_enum
 
 class Mydialog(QWidget):
     """
@@ -32,10 +33,12 @@ class Mydialog(QWidget):
 
         layout = QGridLayout()
         self._icon_index = 0
-        for row in range(7):
-            for col in range(10):
+        for row in range(18):
+            for col in range(4):
                 _qicon = QApplication.style().standardIcon(self._icon_index)
-                layout.addWidget(QPushButton(QIcon(_qicon), str(self._icon_index)), row, col)
+                _name = my_enum.SPIcon(self._icon_index).name
+                layout.addWidget(QPushButton(QIcon(_qicon), str(self._icon_index) + ' ' + _name), row, col)
+                #print(my_enum.SPIcon(self._icon_index).name)
                 self._icon_index += 1
                 col += 1
             row += 1

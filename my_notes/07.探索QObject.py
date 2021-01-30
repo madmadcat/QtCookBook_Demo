@@ -30,9 +30,9 @@ class MyWindow(QWidget):
         # 信号与槽在父子关系中的应用
         # self.QObject_signal_slot_scenario()
         # QObject类型判定
-        # self.qobject_type()
-        # 删除一个对象
-        self.delete_qobj()
+         self.qobject_type()
+        # 删除一个对象 obj.deletelater() , del obj 是无法删除一个部件的
+        # self.delete_qobj()
 
     def Qobject_parent_child_api(self):
         obj1 = QObject()
@@ -146,9 +146,14 @@ class MyWindow(QWidget):
             if widget.inherits('QPushButton'):
                 widget.setStyleSheet('background-color:green')
         ###############案例###############结束
+
+        lable3.deleteLater() # 正确的使用
+        # del lable3 # 错误的使用
         pass
 
     def delete_qobj(self):
+
+        pass
     ###############删除对象的案例###############开始
 
     ###############删除对象的案例###############结束
