@@ -7,7 +7,7 @@
                    2021/1/30:
 """
 
-from PyQt5.QtWidgets import *
+from PyQt5.Qt import *
 
 
 class PosionTool(QWidget):
@@ -19,6 +19,9 @@ class PosionTool(QWidget):
         super().__init__()
         self.setWindowTitle('Qt位置提示工具')
         # self.setup_ui()
+        pixmap = QPixmap('setting-100.png')
+        icon = QIcon(pixmap)
+        self.setWindowIcon(icon)
 
     def setup_ui(self):
 
