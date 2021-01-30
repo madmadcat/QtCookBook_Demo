@@ -44,22 +44,15 @@ class MyFramelessWidget(QWidget):
         # self.icon_max = QApplication.style().standardIcon(my_enum.SPIcon.SP_TitleBarMaxButton.value)
         # self.icon_min = QApplication.style().standardIcon(my_enum.SPIcon.SP_TitleBarMinButton.value)
 
-        window_w = self.width()
 
         # self.btn_close = QPushButton(QIcon(self.icon_close), '', self)
         self.btn_close = QPushButton('关闭', self)
-        btn_close_x = window_w - self.btn_w
-        self.btn_close.move(btn_close_x, self.y)
 
         # self.btn_max = QPushButton(QIcon(self.icon_max), '', self)
         self.btn_max = QPushButton('最大化', self)
-        btn_max_x = btn_close_x - self.btn_w
-        self.btn_max.move(btn_max_x, self.y)
 
         # self.btn_min = QPushButton(QIcon(self.icon_min), '', self)
         self.btn_min = QPushButton('最小化', self)
-        btn_min_x = btn_max_x - self.btn_w
-        self.btn_min.move(btn_min_x, self.y)
 
         self.btn_close.clicked.connect(self.close)
         self.btn_max.clicked.connect(self.slot_max)
@@ -69,16 +62,31 @@ class MyFramelessWidget(QWidget):
         if self.isMaximized():
             self.showNormal()
             self.btn_max.setText('最大化')
-
         else:
             self.showMaximized()
             self.btn_max.setText('恢复')
+    
+    def resizeEvent(self, QResizeEvent) -> None:
+        window_w = self.width()
+        
+        btn_close_x = window_w - self.btn_w
+        self.btn_close.move(btn_close_x, self.y)
+
+        btn_max_x = btn_close_x - self.btn_w
+        self.btn_max.move(btn_max_x, self.y)
+
+        btn_min_x = btn_max_x - self.btn_w
+        self.btn_min.move(btn_min_x, self.y)
+        return super(MyFramelessWidget, self).resizeEvent(QResizeEvent)
+        pass
+    
 
     def mousePressEvent(self, QMouseEvent) -> None:
         # 判定点击的时候是鼠标左键
         # 在此处设置一个标记， 用作判定是否需要移动
         # 窗口的原始坐标
         # 鼠标按下的点
+        print(QMouseEvent.__dict__)
         pass
 
     def mouseMoveEvent(self, QMouseEvent) -> None:
