@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="register">
+    <file>images/register_bg3.png</file>
+  </qresource>
+  <qresource prefix="login">
+    <file>images/myQRcode.png</file>
+    <file>images/downarrow.png</file>
+    <file>images/batman.png</file>
+    <file>images/down_arrow.ico</file>
+    <file>images/login_bg.gif</file>
+    <file>images/picaqiu.png</file>
+    <file>images/stop.png</file>
+    <file>images/shield.png</file>
+    <file>images/setting.png</file>
+  </qresource>
+</RCC>
