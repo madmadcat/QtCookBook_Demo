@@ -24,7 +24,7 @@ redo_action.triggered.connect(redoClicked)
 edit_menu.addAction(redo_action)
 
 print(menu_bar.isNativeMenuBar())
-menu_bar.setNativeMenuBar(False)
+# menu_bar.setNativeMenuBar(False)
 window.setLayout(vbox)
 vbox.addWidget(menu_bar)
 window.show()
